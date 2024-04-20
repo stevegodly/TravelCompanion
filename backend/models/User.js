@@ -5,4 +5,4 @@ const travelUserSchema = new mongoose.Schema({
     password: {type:String},
   }, {timestamps: true});
   
-module.exports = mongoose.model('travelUser', userSchema);
+module.exports = mongoose.model('travelUser', travelUserSchema);
