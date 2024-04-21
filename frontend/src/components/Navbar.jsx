@@ -1,4 +1,3 @@
-import {useState} from 'react';
 import { Link } from 'react-router-dom';
 function Navbar({ handlePlaceChanged,setSearchInput,searchInput}) {
   
@@ -13,7 +12,7 @@ function Navbar({ handlePlaceChanged,setSearchInput,searchInput}) {
         <span className="font-semibold text-xl">Travel App</span>
       </div>
       <div className="flex items-center flex-shrink-0 text-white mr-6">
-      <Link to='/Trip'>
+      <Link to='/Trip/28.7041/77.1025/week'>
         <h1 className="font-semibold text-white">Trip</h1>
       </Link>
       </div>

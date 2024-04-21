@@ -6,8 +6,8 @@ const List = ({places,type, setType, rating, setRating, isLoading })=>{
   
   
   return (
-    <div style={{padding: 25, maxWidth: 700}}>
-      <Typography variant="h4">Food & Dining around you</Typography>
+    <div style={{padding: 25, height: "85vh", width: "75vh"}}>
+      <Typography variant="h4">Land Marks Near You</Typography>
       {isLoading ? (
         <div style={{height: '600px', display: 'flex', justifyContent: 'center', alignItems: 'center',}}>
           <CircularProgress size="5rem" />

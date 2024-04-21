@@ -47,9 +47,8 @@ const Home=()=>{
     }
    
   };
-/*
-  useEffect(() => {
-   
+  /*useEffect(() => {
+    console.log('coords,bounds',coords,bounds);
     setIsLoading(true)
     if(bounds) getPlacesData(type,bounds.sw,bounds.ne)
       .then((data) => {
@@ -61,9 +60,8 @@ const Home=()=>{
       .catch((error) => {
         console.error("Error fetching data:", error);
       })
-  },[type,coords,bounds]);
-  */
-  
+  },[type,bounds]);
+    */
     return (
         <div className='h-screen w-screen'>
             <div>

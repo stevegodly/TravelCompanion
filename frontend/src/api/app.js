@@ -2,6 +2,7 @@ import axios from 'axios';
 
 export const getPlacesData = async (type,sw,ne) => {
   try {
+    console.log("type,sw,ne:",type,sw,ne)
     const response = await axios.get('http://localhost:5000/api/v1/users/places',{
       params: {
         type: type,
@@ -11,10 +12,11 @@ export const getPlacesData = async (type,sw,ne) => {
         ne_lng: ne.lng,
       }
     })
-    return response.data; // Return data from the response
+    console.log("data in getPlacesData:",response.data);
+    return response.data;
   } catch (error) {
     console.error('Error fetching data:', error);
-    throw error; // Throw the error to be caught by the caller
+    throw error; 
   }
 };
 
@@ -32,19 +34,35 @@ export const getWeatherData = async (lat, lng) => {
   catch (error) {
     console.log(error);
   }
-}  
+} 
 
 export const getTripData=async(type,lat,lng)=>{
   try{
-    const data=await axios.get('http://localhost:5000/api/v1/users/trip',{
+    const response=await axios.get('http://localhost:5000/api/v1/users/trip',{
       params:{
         type:type,
         lat:lat,
         lng:lng
       }
     })
-    console.log("data in api:",data)
-    return data;
+    console.log("data in tripData:",response.data)
+    return response.data;
+  }
+  catch(err){
+    console.log(err);
+  }
+}
+
+export const getLocationData=async(type,lat,lng)=>{
+  try{
+    const response=await axios.get('http://localhost:5000/api/v1/users/location',{
+      params:{
+        type:type,
+        lat:lat,
+        lng:lng
+      }
+    })
+    return response.data;
   }
   catch(err){
     console.log(err);
