@@ -25,7 +25,7 @@ export function sortAttractions(attractions) {
     const threshold = 10; 
 
     for (let i = 0; i < attractions.length - 1; i++) {
-        for (let j = 0; j < attractions.length; j++) {
+        for (let j = i+1; j < attractions.length; j++) {
             if (i !== j && calculateDistance(attractions[i].latitude, attractions[i].longitude, attractions[j].latitude, attractions[j].longitude) < threshold) {
                 pairs.push([attractions[i], attractions[j]]);
             }
@@ -88,3 +88,4 @@ export const weekItinerary = (sortedWeekAttractions, sortedRestaurants) => {
 
     return weekItinerary;
 };
+

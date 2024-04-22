@@ -68,3 +68,17 @@ export const getLocationData=async(type,lat,lng)=>{
     console.log(err);
   }
 }
+
+export const getLocation=async(loc)=>{
+  try{
+    const apiKey = 'AIzaSyCp-bjbm99Gd3LzoYzPFKB-bFpP0NjCypU';
+  const response=await fetch(`https://maps.googleapis.com/maps/api/geocode/json?address=${encodeURIComponent(loc)}&key=${apiKey}`);
+  const data=await response.json();
+  const { lat, lng } = data.results[0].geometry.location;
+  console.log(`in getlocation Latitude: ${lat}, Longitude: ${lng}`);
+  return {lat,lng};
+  }
+  catch(error){
+    console.log(error);
+  }
+}

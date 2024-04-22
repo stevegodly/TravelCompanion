@@ -1,8 +1,9 @@
-import {useContext,useState} from "react";
-import {UserContext} from '../components/UserContext'
 import axios from "axios";
 import { useSnackbar } from 'notistack';
-import bgi from "../assets/bgi.avif";
+import { useContext, useState } from "react";
+import { useNavigate } from 'react-router-dom';
+import bgi from "../assets/bgi.jpg";
+import { UserContext } from '../components/UserContext';
 
 const LoginRegister=()=>{
 
@@ -11,7 +12,7 @@ const LoginRegister=()=>{
     const [registerLogin,setRegisterLogin]=useState('login')
     const {setUsername:setLoggedInUsername,setId}=useContext(UserContext)
     const { enqueueSnackbar } = useSnackbar();
-
+    const navigate=useNavigate();
     const handleSubmit=async()=>{
         try{
             const user={
@@ -24,6 +25,7 @@ const LoginRegister=()=>{
             setLoggedInUsername(username);
             setId(data.id);
             enqueueSnackbar(`${url}ed successfully`, { variant: 'success' });
+            navigate('/Home')
         }
         catch(err){
             enqueueSnackbar('Error: '+err.message, { variant:'error'})
@@ -31,10 +33,11 @@ const LoginRegister=()=>{
         }
     }
     return(
-        <div className='flex items-center h-screen bg-contain' style={{ backgroundImage:`url(${bgi})`}}>
-            <div className='flex flex-col backdrop-blur-md border-4 border-amber-300 rounded-xl w-[600px] p-4 mx-auto'>
-                <div className='my-4'>
-                    <label className='text-3xl mr-4 text-blue-600/75 font-serif font-extrabold'>UserName</label>
+        <div className='flex items-center h-screen bg-cover' style={{ backgroundImage:`url(${bgi})`, backgroundPosition: 'center' }}>
+          <div className='flex flex-col backdrop-blur-md border-2 border-blue-300 rounded-xl w-[400px] p-4 absolute right-12 top-1/2 transform -translate-y-1/2 bg-white'>
+
+                <div className='my-1'>
+                    <label className='text-3xl mr-4 text-black-600/75 font-serif font-extrabold'>Username</label>
                     <input
                         type='text'
                         value={username}
@@ -42,16 +45,16 @@ const LoginRegister=()=>{
                         className='border-2 border-gray-200 px-4 py-2 w-full font-semibold bg-white'
                     />
                 </div>
-                <div className='my-4'>
-                    <label className='text-3xl mr-4 text-blue-600/75 font-serif font-extrabold'>Password</label>
+                <div className='my-1'>
+                    <label className='text-3xl mr-4 text-black-600/75 font-serif font-extrabold'>Password</label>
                     <input
-                        type='text'
+                        type='password'
                         value={password}
                         onChange={(e) => setPassword(e.target.value)}
                         className='border-2 border-gray-200 px-4 py-2 w-full font-semibold bg-white'
                     />
                 </div>
-                <button className='p-2 bg-amber-400 hover:bg-amber-600 m-8 rounded-md font-semibold text-blue-600 italict-xl' onClick={handleSubmit}>
+                <button className='p-2 bg-cyan-400 hover:bg-blue-600 m-6 rounded-md font-semibold text-white-600 italict-xl' onClick={handleSubmit}>
                     {registerLogin==='login'?'Login':'Register'}
                 </button>
                 <div className="text-center mt-2">
