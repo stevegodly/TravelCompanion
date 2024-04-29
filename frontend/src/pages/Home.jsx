@@ -10,7 +10,7 @@ const Home=()=>{
   const [places, setPlaces] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const [type,setType]=useState("restaurants");
-  const [rating,setRating]=useState('');
+  const [rating,setRating]=useState('All');
   const [filteredPlaces, setFilteredPlaces] = useState([]);
   const [searchInput, setSearchInput] = useState('');
 
@@ -61,7 +61,7 @@ const Home=()=>{
         console.error("Error fetching data:", error);
       })
   },[type,bounds]);
-    
+  
     return (
         <div className='h-screen w-screen'>
             <div>

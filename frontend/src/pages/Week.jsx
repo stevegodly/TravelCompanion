@@ -1,9 +1,11 @@
 import { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import { getTripData,getPlacesData,getLocationData } from '../api/app'; 
+import { Typography } from '@mui/material';
 import { sortAttractions ,weekItinerary} from '../api/trip';
 import TripCard from '../components/TripCard';
 import WeekCard from '../components/WeekCard';
+import Loading from '../components/Loading';
 
 const WeekTrip = () => {
   const {lat,lng,type}= useParams();
@@ -72,7 +74,7 @@ const bounds = {
   },[]);
 
   if (!tripData || !foodData) {
-    return <div>Loading...</div>;
+    return <div className='bg-gradient-to-r from-indigo-500 h-screen w-screen'><Loading/></div>;
   }
 
   
@@ -101,15 +103,20 @@ else{
         backgroundColor: 'white',
         padding: '20px',
         borderRadius: '10px',
-        boxShadow: '0px 10px 20px rgba(0,0,0,0.19), 0px 6px 6px rgba(0,0,0,0.23)', overflow: 'auto',maxHeight: '99vh'
+        boxShadow: '0px 10px 20px rgba(0,0,0,0.19), 0px 6px 6px rgba(0,0,0,0.23)', overflow: 'auto',maxHeight: '90vh',minWidth:'85vh'
       }}>
         {type === 'day' ? (
-            Object.entries(itinerary).map(([time, details]) => (
-                <div key={time}>
-                    <TripCard time={time} details={details} />
-                </div>
-            ))
-        ) :<WeekCard itinerary={itinerary}/> }
+      <div style={{ display: 'flex', flexDirection: 'column', width:'85vh', alignContent:"center",justifyContent:'center'}}>
+        <div style={{marginBottom:10}}>
+          <Typography gutterBottom variant="h2">A Day's Itinerary</Typography>
+          {Object.entries(itinerary).map(([time, details]) => (
+            <div key={time}>
+              <TripCard time={time} details={details} />
+            </div>
+          ))}
+        </div>
+      </div>  
+    ) :<WeekCard itinerary={itinerary}/> }
       </div>
     </div>
   );

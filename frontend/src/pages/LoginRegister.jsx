@@ -34,7 +34,7 @@ const LoginRegister=()=>{
     }
     return(
         <div className='flex items-center h-screen bg-cover' style={{ backgroundImage:`url(${bgi})`, backgroundPosition: 'center' }}>
-          <div className='flex flex-col backdrop-blur-md border-2 border-blue-300 rounded-xl w-[400px] p-4 absolute right-12 top-1/2 transform -translate-y-1/2 bg-white'>
+          <div className='flex flex-col justify-center items-center backdrop-blur-md border-2 border-blue-300 rounded-xl w-[400px] h-[400px] p-4 absolute top-1/2 transform -translate-y-1/2 bg-white'style={{ right: '200px' }}>
 
                 <div className='my-1'>
                     <label className='text-3xl mr-4 text-black-600/75 font-serif font-extrabold'>Username</label>

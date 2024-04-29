@@ -8,10 +8,10 @@ require('dotenv').config()
 const jwtSecret=process.env.SECRET;
 const bcryptSalt = bcrypt.genSaltSync(10);
 
-const userLogin=async(req,res,next)=>{
+const userLogin=async(req,res)=>{
     const {username,password}=req.body
     const user=await User.findOne({username})
-    if(!user) next(createCustomError('user not found'))
+    if(!user) return
     if(bcrypt.compareSync(password,user.password)){
         jwt.sign({ userId: user._id, username }, jwtSecret, {}, (err, token) => {
             if (err) {
