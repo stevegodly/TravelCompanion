@@ -1,4 +1,5 @@
 import axios from 'axios';
+import { useQuery } from "react-query";
 
 export const getPlacesData = async (type,sw,ne) => {
   try {
@@ -21,16 +22,14 @@ export const getPlacesData = async (type,sw,ne) => {
 };
 
 
-export const getWeatherData = async (lat, lng) => {
+export const getWeatherData = async () => {
+  
   try {
-    const data= axios.get('http://localhost:5000/api/v1/users/weather', {
-        params: {
-          lat:lat,
-          lng:lng
-        },
+    const { isLoading, error, data, refetch } = useQuery("repoData",
+    async () => {
+      const { data } =  axios.get('http://localhost:5000/api/v1/users/weather')
     })
-      return data;
-    }
+  }
   catch (error) {
     console.log(error);
   }

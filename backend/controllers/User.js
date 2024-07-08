@@ -22,6 +22,12 @@ const userLogin=async(req,res)=>{
     }
 }
 
+const userLogout = (req, res) => {
+  res.cookie('token', '', { sameSite: 'none', secure: true, expires: new Date(0) })
+     .status(200)
+     .json({ message: 'Logged out successfully' });
+};
+
 const registerUser = async (req, res, next) => {
     console.log("entered")
     const { username, password } = req.body;
@@ -57,7 +63,7 @@ const places = async (req, res) => {
         tr_latitude: ne_lat,
       },
       headers: {
-        'X-RapidAPI-Key': 'd8d4b8291cmsh85f232d31a4a4abp190359jsnf01ca06decb5',
+        'X-RapidAPI-Key': '40f30c1ac8msh837632ac22245dbp184beajsn7e0a586d2d7a',
         'X-RapidAPI-Host': 'travel-advisor.p.rapidapi.com',
       },
     });
@@ -70,19 +76,12 @@ const places = async (req, res) => {
 };
 
 const weather=async(req,res)=>{
+  const place = req.query.place;
   try {
-    const { lat, lng }=req.query
-    const { data:{data }} = await axios.get('https://open-weather-map27.p.rapidapi.com/weather', {
-      params: { lat, lon: lng },
-      headers: {
-        'x-rapidapi-key': 'a896c05889msh2ee7b323423031ap12dbbejsn559a20f16ca6',
-        'x-rapidapi-host': 'open-weather-map27.p.rapidapi.com',
-      },
-    });
-    res.json(data);
-    
+    const response = await axios.get(`https://api.openweathermap.org/data/2.5/forecast?q=${place}&appid=8058fc51de5c7f00585c5e154f450ce3&cnt=56`);
+    res.json(response.data);
   } catch (error) {
-    console.log(error);
+    res.status(500).json({ error: error.toString() });
   }
 }
 
@@ -116,7 +115,7 @@ const trip=async(req,res)=>{
     const data=await response.json();
     if (!data.results) throw new error("No results found");
     const attractions = data.results
-    .filter(result => result.rating !== undefined) // Filter out results without a rating
+    .filter(result => result.rating !== undefined) 
     .map(result => ({
       name: result.name,
       address: result.vicinity,
@@ -137,7 +136,7 @@ const getLocationData=async(req,res)=>{
     const { data: { data } } = await axios.get(`https://travel-advisor.p.rapidapi.com/${type}/list-by-latlng`, {
       params: { latitude: lat, longitude: lng },
       headers: {
-        'x-rapidapi-key': 'd8d4b8291cmsh85f232d31a4a4abp190359jsnf01ca06decb5',
+        'x-rapidapi-key': '40f30c1ac8msh837632ac22245dbp184beajsn7e0a586d2d7a',
         'x-rapidapi-host': 'travel-advisor.p.rapidapi.com',
       },
     });
@@ -148,4 +147,4 @@ const getLocationData=async(req,res)=>{
 
 }
 
-module.exports={registerUser,userLogin,places,weather,trip,getRestaurants,getLocationData}
+module.exports={registerUser,userLogin,places,weather,trip,getRestaurants,getLocationData,userLogout}

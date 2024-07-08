@@ -3,7 +3,7 @@ import { GoogleMap, LoadScript, Marker,InfoWindow} from '@react-google-maps/api'
 
 import _ from 'lodash'; // lodash library
 
-const Map = ({ setCoords, setBounds, coords = { lat: 0, lng: 0 }, places }) => {
+const Map = ({ setCoords, setBounds, coords = { lat: 0, lng: 0 }, places,weatherData }) => {
   const mapRef = useRef();
   const [debouncedFunction, setDebouncedFunction] = useState(null);
 
@@ -48,6 +48,11 @@ const Map = ({ setCoords, setBounds, coords = { lat: 0, lng: 0 }, places }) => {
               position={{ lat: Number(place.latitude), lng: Number(place.longitude) }}
             />
           ))}
+          {weatherData?.list?.length && weatherData.list.map((data, i) => (
+          <div key={i} lat={data.coord.lat} lng={data.coord.lon}>
+            <img src={`http://openweathermap.org/img/w/${data.weather[0].icon}.png`} height="70px" />
+          </div>
+        ))}
         </GoogleMap>
       </LoadScript>
     </div>
